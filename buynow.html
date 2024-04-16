@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Form</title>
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="radio"],
+    button {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="radio"]{
+      margin-top: 20px;
+    }
+     input[type="radio"], 
+     button {
+      
+     }
+
+    button {
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #4cae4c;
+    }
+    .img {
+      width: 100%;
+      height: auto;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      background: #f4f4f4;
+    }
+    nav a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #333;
+    }
+    .product {
+      position: relative;
+      display: inline-block;
+    }
+    .product img {
+      max-width: 100%;
+      height: auto;
+    }
+    .discount-badge {
+      position: absolute;
+      top: 578px;
+      right: 200px;
+      background-color: green;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .item-name {
+      font-size: 20px;
+      margin-left: 15px;
+    }
+    .star-rating {
+      margin-left: 15px;
+    }
+    .checked {
+      color: orange;
+    }
+    .item-name{
+      margin-top: 50px;
+    }
+    .star-rating{
+      margin-top: -15px;
+      margin-bottom: 10px;
+    }
+    .form-group {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Style for labels */
+        label {
+            font-weight: bold;
+        }
+
+        /* Style for select dropdown */
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Style for line break */
+        br {
+            margin-top: 10px;
+        }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#products.html">Products</a>
+    <a href="aboutus.html">About Us</a>
+    <a href="contactus.html">Contact Us</a>
+  </nav>
+  <div class="product">
+    <input type="image" class="img" src="sengdana.png">
+    <p class="item-name" name="itemName" id="itemName">Sengdana (classic peanut) (1kg), 500 g (₹70), 250g (₹35)</p>
+    <p style="font-size: 25px; margin-left: 15px;">
+      <del style="color: grey;">MRP 171</del> ₹140
+    </p>
+    <div class="star-rating">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star "></span>
+      <span class="fa fa-star"></span>
+    </div>
+    
+    <div class="discount-badge">18% OFF</div>
+   <div class="discount-badge" style="margin-right: -100px;">Save ₹ 31</div>
+
+  </div>
+  <div class="container">
+    <h2>Order Details</h2><br>
+    <form action="/submit-address">
+      <div class="form-group">
+        <label for="address">Deliver to:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address here">
+      </div><br>
+      <div class="form-group">
+        <label for="contact-no">Contact Number:</label>
+        <input type="tel" id="contact-no" name="contactNo" placeholder="+91">
+      </div><br>
+     
+     
+     
+           <div class="form-group">
+             <label for="quantity">Quantity:</label>
+             <select name="quantity" id="quantity">
+               <option value="250g">250g</option>
+               <option value="500g">500g</option>
+               <option value="1kg">1kg</option>
+               <option value="1.5kg">1.5kg</option>
+               <option value="2kg">2kg</option
+               <option value="aap ko agar aur quality  me chya to app lekh sakta ha">aagar aapko aur quality me chya too aap lekh sakta ha</option>
+             </select>
+           </div><br>
+     
+     
+     
+     
+      <div class="form-group">
+        
+      
+      
+      
+      <div class="form-group">
+        <label>Choose Payment type:</label><br>
+        <input type="radio" id="upi" name="paymentMethod" value="UPI">
+        <label for="upi">UPI</label><br>
+        <input type="radio" id="card" name="paymentMethod" value="Card/Credit">
+        <label for="card">Card/Credit</label><br>
+        <input type="radio" id="cod" name="paymentMethod" value="COD">
+        <label for="cod">Cash on Delivery</label>
+      </div><br>
+      <button type="button" onclick="sendWhatsAppMessage()">Continue</button>
+    </form>
+  </div>
+  <script>
+    
+
+  
+  function sendWhatsAppMessage() {
+    var address = document.getElementById('address').value;
+    var quantity = document.getElementById('quantity').value;
+    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    var itemName = 'Sengdana'; // यहाँ आपके आइटम का नाम लिखें
+    var message = encodeURIComponent(itemName + ' - मात्रा: ' + quantity + ', पता: ' + address + ' , भुगतान का तरीका: ' + paymentMethod); 
+    var whatsappUrl = 'https://wa.me/9619084299?text=' + message; // अपना WhatsApp नंबर यहाँ लिखें
+    window.open(whatsappUrl, '_blank');
+  }
+  
+  </script>
+</body>
+</html>
+

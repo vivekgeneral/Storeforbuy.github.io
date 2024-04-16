@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+ <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+<title>Vivek General Store</title>
+
+
+
+<script src="script.js"></script>
+<meta property="og:title" content="Vivek General Store">
+<meta property="og:description" content="स्वागत है आपका अपनी पसंदीदा ऑनलाइन दुकान में, जहाँ आपको मिलेगा अनूठा और विश्वसनीय शॉपिंग अनुभव। हमारे यहाँ आपको मिलेंगे नवीनतम फैशन, इलेक्ट्रॉनिक्स, और घरेलू सामान बेहतरीन कीमतों पर। हमारी प्रतिबद्धता है आपको प्रदान करना उत्कृष्ट ग्राहक सेवा और एक सुरक्षित शॉपिंग वातावरण। तो देर किस बात की? शुरू करें अपनी शॉपिंग अभी हमारे साथ और उठाएं शानदार ऑफर्स का लाभ!">
+<meta property="og:image" content="/new vivek project/Vivekgeneral.png">
+<meta property="og:url" content="https//:Vivek General Store.com">
+
+
+
+
+
+<style>
+  body { font-family: Arial, sans-serif; }
+  header { background: #333; color: white; padding: 10px 0; text-align: center; }
+  nav { display: flex; justify-content: center; padding: 10px 0; background: #f4f4f4; }
+  nav a { text-decoration: none; margin: 0 15px; color: #333; }
+  .container { padding: 20px; }
+  footer { background: #333; color: white; text-align: center; padding: 10px 0; margin-top: 20px; }
+  .autocomplete-items {
+    /* सुझावों के लिए स्टाइल */
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /* सुझावों को अन्य तत्वों के ऊपर दिखाने के लिए */
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+  .navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 10px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  
+  .autocomplete-items div:hover {
+    /* जब किसी आइटम पर माउस होवर करें */
+    background-color: #e9e9e9;
+  }
+  .item a {
+  text-decoration: none !important;
+  color: white !important;
+}
+.qyt { 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+} 
+
+.qyt input { 
+	width: 30px; 
+	border-radius: 0.1rem; 
+	border: 0.1rem solid #4caf50; 
+	transition: border-color 0.3s ease-in-out; 
+} 
+
+.price { 
+	color: #ffc107; 
+	font-weight: 600; 
+	margin: 0 0; 
+} 
+
+.qyt input, 
+.qyt label { 
+	margin: 0px 10px; 
+	
+} 
+.items-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-container {
+  width: calc(50% - 10px);
+  border: 1px solid #ddd;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.item-container img {
+  width: 100%;
+  display: block;
+ 
+}
+
+.item-info {
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.item-price {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #555;
+}
+#searchInput {
+  color:red;
+}
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* आपकी पसंद के अनुसार */
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 17px; /* आपकी पसंद के अनुसार */
+  border: 1px solid #ccc;
+  border-radius: 5px; /* गोल कोने के लिए */
+}
+
+.search-container i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #333; /* आइकन का रंग */
+  cursor: pointer;
+}
+.suggested {
+  font-size: 25px;
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-bottom:5px;
+}
+
+</style>
+</head>
+
+<body onload="autoRefresh(3600000)">
+
+<header>
+  <h1>Vivek general store</h1>
+  <!-- शॉपिंग कार्ट आइकन जोड़ने के लिए नीचे कोड -->
+  <div class="cart-icon" style="position: absolute; right: 25px; top: 50px;">
+    <i class="ri-shopping-cart-line"></i>
+  </div>
+</header>
+ <!-- अन्य स्टाइल्स और लिंक्स -->
+
+<div id="cartContainer">
+
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="#products.html">products</a>
+  <a href="/aboutussss.html">About us</a>
+  <a href="contactus.html">Contant us</a>
+
+
+</nav>
+  <!-- नेविगेशन बार के नीचे सर्च बार विथ आइकन -->
+<div class="search-container">
+  <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search items...">
+      <i class="ri-search-line"></i>
+    </button>
+  
+</div>
+
+
+ <!-- नेविगेशन बार के लिए HTML -->
+<div class="navbar">
+  <div class="nav-item">
+    <a href="grocery.html">
+      <img src="gracerynav.png" alt="grocery">
+      <span>Groceries</span>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="book,toy.html">
+      <img src="booktoynav.png" alt="books & Toys">
+      <span>Books, Toys</span>
+    </a>
+  </div>
+  <!-- अन्य नेविगेशन आइटम्स के लिए इसी तरह के डिव्ज़ जोड़ें -->
+    <div class="nav-item">
+      <a href="#fashion">
+        <img src="home.png" alt="Home">
+        <span>Home</span>
+      </a>
+    </div>
+      <div class="nav-item">
+        <a href="#fashion">
+          <img src="essential.png" alt="essential">
+          <span>essential</span>
+        </a>
+      </div>
+      
+</div>
+
+
+
+<div class="container">
+  <h2>Welcome !</h2>
+  <p >यहाँ आपको विभिन्न प्रकार के उत्पाद मिलेंगे।</p>
+</div>
+
+
+
+
+<div class="items-row">
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1" onclick="location.href='buynow.html';">
+        <img src="sengdana.png" alt="Item 1 Image" style="height:180px">
+        <div class="item-info">
+            <h3 class="item-name">Sengdana</h3>
+       <p style="color: green; margin-block:2px;
+            ">Free Delivery</p>
+            </div>
+        
+        <a href="buynow.html"role="button" class="buynow">Buy Now</a>
+        
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='sugar.html';">
+        <img src="sugar.png" alt="Item 2 Image" style="height:180px;">
+        <div class="item-info">
+            <h3 class="item-name">Sugar</h3>
+           <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+        <a href="sugar.html" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+    
+    
+    
+</div>
+ <div class="items-row" >
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1"  onclick="location.href='coconut.html';">
+        <img src="coconut.png" alt="Item 1 Image">
+        <div class="item-info">
+            <h3 class="item-name">Coconut (khobra) </h3>
+             <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+        <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='gemini.html';">
+
+        <img src="gemin.png" alt="Item 2 Image">
+        <div class="item-info">
+            <h3 class="item-name">Gemini</h3>
+           <p style="color: green; margin-block:2px ">best deal</p>
+
+        </div>
+        <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+    
+    
+    
+</div>
+<div class="suggested">Suggested For You</div>
+ <div class="items-row" style="overflow-x: scroll">
+   <!-- आइटम 1 -->
+   <div class="item-container" id="item1" onclick="location.href='thumbsup.html';">
+     <img src="thumsup.png" alt="Item 1 Image">
+     <div class="item-info">
+       <h4 class="item-name" style="font-size: 17px;">Thumbs up </h4>
+       <div> <del style="color: grey;">45</del> ₹40</div>
+       <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <!-- आइटम 2 -->
+   <div class="item-container" id="item2" onclick="location.href='sting.html';">
+     <img src="sting.png" alt="Item 2 Image">
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">Sting energy drink <del>22</del> ₹20</h3>
+       <p style="color: green; margin-block:2px ">best deal</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <div class="item-container" id="item2" onclick="location.href='sprite.html';">
+     <img src="sprite.png" alt="Item 3 Image">
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">Sprite 500ml</h3>
+       <del style="color: grey;">42</del> ₹40
+       <p style="color: green; margin-block:2px ">Best deal</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+
+
+
+ </div>
+  <div class="items-row" >
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1" onclick="location.href='cocacola.html';">
+      <img src="cocacola.png" alt="Item 1 Image" style="height: 136px;">
+      <div class="item-info">
+        <h4 class="item-name" style="font-size: 17px;">Coca~cola</h4>
+        <div> <del style="color: grey;">45</del> ₹40</div>
+        <p style="color: green; margin-block:2px ">Free Delivery</p>
+ 
+      </div>
+      <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='jeraasoda.html';">
+      <img src="jeera.png" alt="Item 2 Image">
+      <div class="item-info">
+        <h3 class="item-name" style="font-size: 17px;">Jeera soda <br> <del style="color: grey;">12</del> ₹10</h3>
+        <p style="color: green; margin-block:2px ">Chill</p>
+ 
+      </div>
+      <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+    <div class="item-container" id="item2" onclick="location.href='mirinda.html';">
+      <img src="mirinda.png" alt="Item 3 Image" style="height: 135px">
+      <div class="item-info">
+        <h3 class="item-name" style="font-size: 17px;">Mirinda</h3>
+        <del style="color: grey;">42</del> ₹40
+        <p style="color: green; margin-block:2px ">Offer</p>
+ 
+      </div>
+      <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+    </div>
+ </div>
+   
+  
+   <p class="offer">Offer</p>
+        <div class="item-containersss" onclick="location.href='#';">
+
+        <div class="carousel">
+          <img src="images (8).jpeg" alt="apple" class="active">
+          <img src="IMG_20240316_182738.jpg" alt="op">
+          <img src="IMG_20240316_223929.jpg" alt="Product 3">
+          <!-- Add more images as needed -->
+        </div>
+        <div class="item-details">
+          <h3 onclick="redirectToProductPage(1)">Bread</h3>
+          <p>Daily need fresh bread</p>
+          <p> small -₹17 big -₹34</p>
+        </div>
+      </div>
+      <style>
+      .offer{
+        font-size: 25px;
+      }
+        .item-containersss {
+          display: flex;
+          width: 100%;
+          margin-bottom: 10px;  
+        }
+        
+        .carousel {
+          position: relative;
+          overflow: hidden;
+          width: 60%;
+        }
+        
+        .carousel img {
+          position: absolute;
+          width: 100%;
+          height: auto;
+          display: none;
+        }
+        
+        .carousel img.active {
+          display: block;
+        }
+        
+        .item-details {
+          width: 40%;
+          padding: 20px;
+          box-sizing: border-box;
+        }
+        
+        .item-details h3 {
+          cursor: pointer;
+        }
+      </style>
+      <script>
+                 function redirectToProductPage(productId) {
+                   // Replace the following line with your actual redirection logic
+                   alert("Redirecting to product page " + productId);
+                 }
+        
+                 // Auto-rotate the carousel
+                 const carouselImages = document.querySelectorAll(".carousel img");
+                 let currentImageIndex = 0;
+        
+                 setInterval(() => {
+                   carouselImages[currentImageIndex].classList.remove("active");
+                   currentImageIndex = (currentImageIndex + 1) % carouselImages.length;
+                   carouselImages[currentImageIndex].classList.add("active");
+                 }, 3000);
+      </script>
+     
+<p style="font-size: 25px;margin: 40px 0px 5px 5px ;">You May Like...</p>
+ <div class="items-row" style="bg">
+   <!-- आइटम 1 -->
+   <div class="item-container" id="item1" onclick="location.href='greenpeac.html';">
+     <img src="greenpiece.png" alt="Item 1 Image">
+     <div class="item-info">
+       <h4 class="item-name" style="font-size: 17px;">GreenPeas 200 </h4>
+       <div> <del style="color: grey;">55</del> ₹48</div>
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <!-- आइटम 2 -->
+   <div class="item-container" id="item2" onclick="location.href='greenchilli.html';">
+     <img src="chilli.png" alt="Item 2 Image" style="height:92px;">
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">Green Chilli 200g<del>22</del> ₹20</h3>
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <div class="item-container" id="item2" onclick="location.href='coriander.html';">
+     <img src="IMG_20240330_101303.jpg" alt="Item 3 Image" style="height: 96px;">
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">Coriander 50g</h3>
+       <del style="color: grey;">10</del> ₹5
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+
+
+
+ </div>
+ <div class="items-row">
+   <!-- आइटम 1 -->
+   <div class="item-container" id="item1" onclick="location.href='/tomato.html';">
+     <img src="tomato.png" alt="Item 1 Image" style="height: 91px;">
+     <div class="item-info">
+       <h4 class="item-name" style="font-size: 17px;">Tomato 1kg</h4>
+       <div> <del style="color: grey;">45</del> ₹40</div>
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <!-- आइटम 2 -->
+   <div class="item-container" id="item2" onclick="location.href='lemon.html';">
+     <img src="lemon.png" alt="Item 2 Image">
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">Lemon 3p<br> <del style="color: grey;">12</del> ₹10</h3>
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   <div class="item-container" id="item2" onclick="location.href='ginger.html';">
+     <img src="ginder.png" alt="Item 3 Image" >
+     <div class="item-info">
+       <h3 class="item-name" style="font-size: 17px;">ginger 50g</h3>
+       <del style="color: grey;">12</del> ₹10
+       <p style="color: green; margin-block:2px ">Fresh</p>
+
+     </div>
+     <a href="https://wa.me/7304390321?text=I%20am%20interested%20in%20buying%20soyabin%20with%20%20quantity" target="_blank" role="button" class="buy-now-link">Buy Now</a>
+   </div>
+   
+</div>
+
+
+<p class="need" style=" background-color: white; color:black;
+padding: 10px 0; 
+margin-top: 20px;margin-bottom: 0px; /* यह किसी भी मार्जिन को हटा देगा */
+font-size: 24px; border-radius: 0px; "> Daily needs</p>
+
+<div class="items-row" style="background-color: orange">
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1" onclick="location.href='heeramoti.html';">
+        <img src="heeramoti.png" alt="Item 1 Image" style="height:180px">
+        <div class="item-info">
+            <h3 class="item-name">Heera  Moti Aata</h3>
+      <div> <del style="color: grey;">220</del> ₹200 (5 kg) </div>
+
+       <p style="color: green; margin-block:2px;
+            ">Free Delivery</p>
+            </div>
+        
+        
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='moongdal.html';">
+        <img src="moongdal.png" alt="Item 2 Image" style="height:180px;">
+        <div class="item-info">
+            <h3 class="item-name">Moong Dal (1 kg) </h3>
+     <div> <del style="color: grey;">135</del> ₹120</div>
+
+           <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+        
+    </div>
+    
+    
+    
+</div>
+
+ <div class="items-row" style="background-color: orange;">
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1"  onclick="location.href='masoordal.html';">
+        <img src="masoordal.png" alt="Item 1 Image">
+        <div class="item-info">
+            <h3 class="item-name">Masoor dal (1 kg) </h3>
+       <div> <del style="color: grey;">135</del> ₹120</div>
+
+             <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='toordal.html';">
+
+        <img src="toordal.png" alt="Item 2 Image">
+        <div class="item-info">
+            <h3 class="item-name">Toor dal (2 kg) </h3>
+     <div> <del style="color: grey;">135</del> ₹240 </div>
+
+           <p style="color: green; margin-block:2px ">best deal</p>
+
+        </div>
+    </div>
+ </div>
+ 
+ 
+ 
+<div class="items-row" style="background-color: orange">
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1" onclick="location.href='heeramoti.html';">
+        <img src="wadakolam.png" alt="Item 1 Image" style="height:180px">
+        <div class="item-info">
+            <h3 class="item-name">Wada Kolam Rice 1 KG Packet</h3>
+      <div> <del style="color: grey;">69</del> ₹55 (1 kg) </div>
+
+       <p style="color: green; margin-block:2px;
+            ">Free Delivery</p>
+            </div>
+        
+        
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='moongdal.html';">
+        <img src="moongdal.png" alt="Item 2 Image" style="height:180px;">
+        <div class="item-info">
+            <h3 class="item-name">Moong Dal (1 kg) </h3>
+     <div> <del style="color: grey;">135</del> ₹120</div>
+
+           <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+        
+    </div>
+    
+    
+    
+</div>
+
+ <div class="items-row" style="background-color: orange;">
+    <!-- आइटम 1 -->
+    <div class="item-container" id="item1"  onclick="location.href='masoordal.html';">
+        <img src="masoordal.png" alt="Item 1 Image">
+        <div class="item-info">
+            <h3 class="item-name">Masoor dal (1 kg) </h3>
+       <div> <del style="color: grey;">135</del> ₹120</div>
+
+             <p style="color: green; margin-block:2px ">Free Delivery</p>
+
+        </div>
+    </div>
+    <!-- आइटम 2 -->
+    <div class="item-container" id="item2" onclick="location.href='toordal.html';">
+
+        <img src="toordal.png" alt="Item 2 Image">
+        <div class="item-info">
+            <h3 class="item-name">Toor dal (2 kg) </h3>
+     <div> <del style="color: grey;">135</del> ₹240 </div>
+
+           <p style="color: green; margin-block:2px ">best deal</p>
+
+        </div>
+    </div>
+ </div>
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+
+ 
+ <div class="popup-overlay" id="popup">
+  <div class="popup-content">
+    <span class="popup-close" id="close-popup">&times;</span>
+    <h2>विशेष ऑफर!</h2>
+<p>अपनी दिन के पहली खरीदारी पर 20% की छूट पाएं!</p> 
+    <button>अभी शॉप करें</button>
+  </div>
+</div>
+<!-- 'Next' बटन -->
+<div class="navigation-buttons">
+    <a href="#" class="button">Top</a>
+</div>
+
+<footer>
+    <p>copyright © 2024 Vivek General Store</p>
+</footer>
+
+<script>
+// JavaScript function to redirect to the specified URL
+function redirectToPage(url) {
+    window.location.href = url;
+}
+
+
+
+// यह फ़ंक्शन सर्च इनपुट के लिए ऑटोकम्प्लीट सुझाव दिखाएगा
+function autocomplete(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+// आइटम्स की एक लिस्ट जिसे आप सर्च सुझाव के रूप में उपयोग कर सकते हैं
+
+
+var items = ["kishan", "Banana", "Cherry", "Date", "Eggfruit", "Fig", "Grape", "Honeydew",'sengdana', 'rava', 'khobra', 'coconut', 'raw coconut', 'elaichi', 'bagar', 'jeera', 'sauf', 'kasturi mehti', 'mehti', 'imli', 'rai','rae', 'laung', 'kali merch', 'corendar', 'sukha dhaniya', 'raw coriander', 'tez pataa', 'eveready cell', 'cell', 'cel', 'small cell','big cell', 'choota cell', 'bada cell', 'fevicol', 'aal pin', 'pin', 'match box', 'fun too', 'chuna', 'chicken masala', 'meat masala', 'garam masala', 'ginger garlic paste', 'adrak lasun paste', 'schzwan chuteny', 'schzwan fried masala', 'ponds powder', 'head & shoulder','shampoo', 'clinic plus', 'head & shoulder cool', 'trusmee', 'panteen', 'indulekha', 'coffee', 'bru','BRU', 'nescafe','tea', 'society chay pati', 'society', 'family', 'solanki', 'chicken masala', 'suhana chicken masala', 'pannir masala', 'chicken 65 masala ','pav bhaji masala', 'sambar masala', 'chaat masala ','egg fry masala', 'anda masala', 'fish masala', 'egg cury masala', 'fish fry masala', 'ginger & garlic powder', 'adrak lasaun masala', 'pamper small', 'pamper medium', 'pamper large', 'pamper XL', 'pad', 'sanatiary pad', 'whisper', 'whisper ultra', 'whisper s', 'whisper l', 'whisper XL', 'tel', 'suflower oil', 'priya oil', 'sarso tel', 'sugar', 'sakar', 'kissan jam', 'kissan soos', 'jam', 'soos', 'vim gel', 'vim soap', 'surf excel soap', 'wheel soap', ' nirma soap', 'xpert soap', 'tide', 'rinfresh', 'colgate', 'dabur', 'dabur red ','samrat', 'R.k','r.k','rk','dettol','lux','santoor', 'lifebouy', 'medimix', 'pears',
+'monaco', 'parle', 'monaco', 'bounce', 'bourbon', 'milk biscuits', 'tiger biscuits', 'krack jack biscuits', 'oreo', 'jimjam', 'good day', 'marie', 'vita marie', 'thumps up', 'sting', 'mirinda', 'sprite', 'coca-cola', 'tide','surf execl', 'areal', 'airel', 'aala', 'moong dal', 'toor dal', 'masoor dal', 'aalu', 'potatatoo', 'onion', 'kanda', 'heera moti', 'aata', 'maggie', 'yellow maggie', 'yippee maggie', 'gippi maggie', 'namak', 'misal masala', 'kali merch powder', 'basmati tukda', 'Basmati rice', 'kolam rice', 'rasan chawal', 'happy happy', 'ghee', 'dhoop', 'sewai', 'chock', 'slate pencil', 'agarbati', 'parachute oil', 'tel', 'jaismin oil', 'sunny fenail', 'harppic', 'rin aala', 'book', 'notebook', 'notebook 100page','notebook 200page','english note book', 'maths notebook', 'mix note book', 'full scape','vim liquid', 'honey', 'shad', 'hing', 'dettol liquid', 'candle', 'kaju', 'badam','akha masala', 'tata salt', 'table top', 'popcorn chips', 'chips', 'dove soap', 'dove conditioner', 'tomato chips', 'simple salty chips', 'masala masti chips', 'cream onion chips','kurkure', 'punjabi tadka', 'wheels', 'namkeen', 'chocolate', 'ice cream', 'pepsi', 'cakali', 'maaza', 'melody', 'besan', 'wada kolam rice', 'dairy milk', 'long grain basmati', 'sabudana', 'nariyal', 'namak', 'salt', 'tata salt', 'table top salt', 'green peac', 'green chill', 'watana', 'red chilli', 'red apple', 'apple', 'lemon', 'ginger', 'aadrak', 'corender', 'coriander', 'naamkeen', 'scoops', 'soup' ,];
+
+// फ़ंक्शन को इनिशियलाइज़ करें
+autocomplete(document.getElementById('searchInput'), items);
+
+
+
+
+
+
+// खोज फ़ंक्शन
+function searchItems() {
+    var searchValue = document.getElementById('searchInput').value.toLowerCase();
+    var items = document.querySelectorAll('.item-container');
+
+    items.forEach(function(item) {
+        var itemName = item.querySelector('.item-name').textContent.toLowerCase();
+        if (itemName.includes(searchValue)) {
+            item.style.display = 'block'; // अगर आइटम मिलता है तो दिखाएं
+        } else {
+            item.style.display = 'none'; // नहीं तो छुपाएं
+        }
+    });
+}
+
+
+
+
+// यह फ़ंक्शन आइटम के डेटा को WhatsApp मैसेज में जोड़ देगा
+function sendWhatsAppMessage(itemName, itemQuantity, itemImage) {
+    var message = "मैं इस आइटम को खरीदने में रुचि रखता हूँ: " + itemName + ", मात्रा: " + itemQuantity;
+    var whatsappUrl = "https://wa.me/7304390321?text=" + encodeURIComponent(message);
+    window.open(whatsappUrl, '_blank');
+}
+
+// यह फ़ंक्शन 'Buy Now' बटन पर क्लिक होने पर चलेगा
+document.querySelectorAll('.buy-now-link').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // डिफ़ॉल्ट लिंक एक्शन को रोकें
+        var itemContainer = this.closest('.item-container');
+        var itemName = itemContainer.querySelector('.item-name').textContent;
+        var itemQuantity = itemContainer.querySelector('input[type="number"]').value || '1kg'; // अगर कोई मात्रा नहीं दी गई है, तो डिफ़ॉल्ट '1kg' उपयोग करें
+        var itemImage = itemContainer.querySelector('img').src;
+        sendWhatsAppMessage(itemName, itemQuantity, itemImage);
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var popup = document.getElementById('popup');
+  var closeBtn = document.getElementById('close-popup');
+
+  // पॉप-अप को दिखाने से पहले चेक करें कि क्या यूजर ने पहले ही इसे बंद कर दिया है
+  var isDismissed = localStorage.getItem('isDismissed');
+  if (isDismissed !== 'true') {
+    setTimeout(function () {
+      popup.classList.add('popup-active');
+    }, 3000); // 3 सेकंड के बाद पॉप-अप दिखाएं
+
+    setTimeout(function () {
+      popup.classList.remove('popup-active');
+    }, 5000); // और 2 सेकंड के बाद पॉप-अप बंद कर दें
+  }
+
+  closeBtn.addEventListener('click', function () {
+    popup.classList.remove('popup-active');
+    // जब यूजर पॉप-अप को बंद कर दे, तो 'isDismissed' को 'true' के रूप में सेट करें
+    localStorage.setItem('isDismissed', 'true');
+  });
+});
+// यह फंक्शन वेबसाइट को निर्धारित समय के बाद रिफ्रेश कर देगा
+function autoRefresh(interval) {
+   setTimeout(function() {
+      location.reload();
+   }, interval);
+}
+function redirectToBuyPage(itemName) {
+  var quantity = document.getElementById('quantity_vegetable1').value || '1kg';
+  localStorage.setItem('itemName', itemName);
+  localStorage.setItem('quantity', quantity);
+  window.location.href = 'buynow.html'; // बाय नाउ पेज का URL
+}
+
+// यहाँ आप रिफ्रेश इंटरवल सेट कर सकते हैं - 1000 मिलीसेकंड्स = 1 सेकंड
+// उदाहरण के लिए, एक घंटे के लिए 3600000 मिलीसेकंड्स सेट करें
+autoRefresh(3600000); // यहाँ आप इंटरवल को घंटे या दिन में बदल सकते हैं
+
+
+</script>
+
+</body>
+</html>
+
+
